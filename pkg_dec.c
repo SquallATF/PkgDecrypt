@@ -234,7 +234,11 @@ int main(int argc, char **argv) {
 		/** create out directory */
 		struct stat st = {0};
 		if (stat(argv[2], &st) == -1) {
+#ifdef __MINGW32__
+			mkdir(argv[2]);
+#else
 			mkdir(argv[2], 0777);
+#endif
 		}
 		
 		char* extraName;
@@ -259,7 +263,11 @@ int main(int argc, char **argv) {
 					printf("dirName: %s\n", dirName);
 
 					if (stat(dirName, &st) == -1) {
+#ifdef __MINGW32__
+						mkdir(dirName);
+#else
 						mkdir(dirName, 0777);
+#endif
 					}
 				}
 				break;
